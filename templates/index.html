@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Automation System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Library Automation System</h1>
+    </header>
+    <main>
+        <section id="login">
+            <h2>Login</h2>
+            <form action="/login" method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+        </section>
+
+        <section id="search">
+            <h2>Search Books</h2>
+            <form action="/books/search" method="get">
+                <input type="text" name="query" placeholder="Search for books" required>
+                <input type="submit" value="Search">
+            </form>
+        </section>
+
+        <section id="borrow">
+            <h2>Borrow Book</h2>
+            <form action="/books/borrow" method="post">
+                <input type="text" name="book_id" placeholder="Book ID" required>
+                <input type="submit" value="Borrow Book">
+            </form>
+        </section>
+
+        <section id="return">
+            <h2>Return Book</h2>
+            <form action="/books/return" method="post">
+                <input type="text" name="book_id" placeholder="Book ID" required>
+                <input type="submit" value="Return Book">
+            </form>
+        </section>
+
+        <section id="reserve">
+            <h2>Reserve Book</h2>
+            <form action="/books/reserve" method="post">
+                <!-- Reserve form fields -->
+            </form>
+        </section>
+    </main>
+</body>
+</html>
