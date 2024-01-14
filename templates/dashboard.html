@@ -12,15 +12,6 @@
         <h1>Library Automation System</h1>
     </header>
     <main>
-        <section id="login">
-            <h2>Login</h2>
-            <form action="/login" method="post">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="submit" value="Login">
-            </form>
-        </section>
-
         <section id="search">
             <h2>Search Books</h2>
             <form action="/books/search" method="get">
@@ -49,7 +40,7 @@
             <h2>Reserve Book</h2>
             <form action="/books/reserve" method="post">
                 <input type="text" name="book_id" placeholder="Book ID" required>
-                <input type="submit" value="Return Book">
+                <input type="submit" value="Reserve Book">
             </form>
         </section>
     </main>

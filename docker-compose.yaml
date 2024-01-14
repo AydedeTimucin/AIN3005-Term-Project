@@ -9,7 +9,7 @@ services:
     container_name: kafka-broker
     restart: always
     ports:
-      - 9092:9092
+      - 29092:9092
     environment:
       KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
       ALLOW_PLAINTEXT_LISTENER: 'yes'
@@ -26,6 +26,11 @@ services:
       KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS: '0'
     depends_on:
       - zookeeper
+    healthcheck:
+      test: ["CMD", "kafka-broker", "--request", "api_version"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 
   zookeeper:
@@ -36,3 +41,13 @@ services:
       - 2181:2181
     environment:
       ALLOW_ANONYMOUS_LOGIN: 'yes'
+
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - kafka-broker
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py

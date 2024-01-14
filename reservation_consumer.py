@@ -3,7 +3,14 @@ from kafka.errors import NoBrokersAvailable
 import json
 import time
 
-def create_consumer_with_retry(topic, bootstrap_servers, max_retries=5, retry_delay=10):
+# Kafka consumer configuration
+topic = 'reservation_topic'
+bootstrap_servers = 'kafka-broker:9092'
+max_retries = 5
+retry_delay = 10  # seconds
+
+# Function to create Kafka consumer with retry
+def create_consumer_with_retry():
     for i in range(max_retries):
         try:
             consumer = KafkaConsumer(
@@ -18,8 +25,12 @@ def create_consumer_with_retry(topic, bootstrap_servers, max_retries=5, retry_de
     raise Exception("Failed to connect to Kafka broker after several retries.")
 
 # Initialize Kafka Consumer with retry mechanism
-consumer = create_consumer_with_retry('overdue_books_topic', 'kafka-broker:9092')
+consumer = create_consumer_with_retry()
 
+# Listening for messages
 for message in consumer:
-    overdue_info = message.value
-    print(f"Overdue book alert: Book ID {overdue_info['book_id']} is overdue. User ID: {overdue_info['user_id']}")
+    # Process message
+    book_id = message.value['book_id']
+    user_id = message.value['user_id']
+    borrowed_date = message.value['borrowed_date']
+    print(f"Notification: User {user_id} borrowed book {book_id} on {borrowed_date}")
